@@ -1,0 +1,97 @@
+// Start with assigning color names to specific hex values.
+$white: #fff;
+$black: #000;
+$red: #f44336;
+$orange: #ff9800;
+$yellow: #FFEB3B;
+$green: #6bb536;
+
+$blue: #2196f3;
+$teal: #009688;
+$pink: #e91e63;
+$purple: #9c27b0;
+
+// Create grayscale
+$gray-dark: #333333;
+$gray: #464a4c;
+$gray-light: #666666;
+$gray-lighter: #eaeaea;
+$gray-lightest: #f5f5f5;
+
+// Reassign color vars to semantic color scheme
+$brand-primary: $green;
+$brand-success: $green;
+$brand-info: $teal;
+$brand-warning: $orange;
+$brand-danger: $red;
+$brand-inverse: $gray-dark;
+
+$hr-border-color: #d8d8d8;
+
+// Other custom colors
+$tabs-background: #ededed;
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+$enable-rounded: false;
+$enable-shadows: false;
+$enable-gradients: false;
+$enable-transitions: true;
+$enable-hover-media-query: false;
+$enable-grid-classes: true;
+$enable-print-styles: true;
+
+$font-family-sans-serif: 'Source Sans Pro', sans-serif;
+$font-family-base: $font-family-sans-serif;
+$header-top-height: 84px;
+$header-border-color: rgba(0, 0, 0, 0.1);
+
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 980px,
+        xl: 1180px
+);
+
+$text-muted: $gray-light;
+
+// Breadcrumbs
+$breadcrumb-padding-y: .75rem;
+$breadcrumb-padding-x: 0;
+$breadcrumb-item-padding: .5rem;
+
+$breadcrumb-bg: transparent;
+$breadcrumb-divider-color: $gray-light;
+$breadcrumb-active-color: $gray-light;
+$breadcrumb-divider: ">";
+
+// Pagination
+$pagination-padding-x: .75rem;
+$pagination-padding-y: 10px;
+$pagination-padding-x-sm: .5rem;
+$pagination-padding-y-sm: $pagination-padding-y;
+$pagination-padding-x-lg: 1.5rem;
+$pagination-padding-y-lg: $pagination-padding-y;
+$pagination-line-height: 27px;
+
+$pagination-color: $gray-light;
+$pagination-bg: transparent;
+$pagination-border-width: 3px;
+$pagination-border-color: transparent;
+
+$pagination-hover-color: $brand-primary;
+$pagination-hover-bg: transparent;
+$pagination-hover-border: transparent;
+
+$pagination-active-color: $brand-primary;
+$pagination-active-bg: transparent;
+$pagination-active-border: $brand-primary;
+
+$pagination-disabled-color: #d5d5d5;
+$pagination-disabled-bg: transparent;
+$pagination-disabled-border: transparent;
+
+// Forms
+$input-border-color: #9b9b9b;

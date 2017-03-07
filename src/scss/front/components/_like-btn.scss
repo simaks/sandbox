@@ -1,0 +1,17 @@
+.btn-article-like {
+  &:not(.liked) {
+    .show-liked {
+      display: none;
+    }
+  }
+
+  &.liked {
+    .show-unliked {
+      display: none;
+    }
+  }
+
+  .status-user-loading & {
+    display: none;
+  }
+}

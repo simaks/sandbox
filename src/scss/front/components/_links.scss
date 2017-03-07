@@ -1,0 +1,16 @@
+.sepparated-more-link {
+  display: block;
+  border: 1px solid $hr-border-color;
+  border-right-width: 0;
+  border-left-width: 0;
+  color: $gray-light;
+  line-height: 24px;
+  padding: 5px 0;
+  font-size: 14px;
+  font-weight: 400;
+
+  &:after {
+    content: '>';
+    float: right;
+  }
+}

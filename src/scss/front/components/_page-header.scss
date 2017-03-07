@@ -1,0 +1,128 @@
+.page-header {
+  .top-navbar {
+    border-top: 5px solid $brand-primary;
+    border-bottom: 1px solid $header-border-color;
+
+    @include media-breakpoint-between(sm, md) {
+      > .container {
+        padding-right: $grid-gutter-width-base/2;
+        padding-left: $grid-gutter-width-base/2;
+      }
+    }
+
+    .svg-user {
+      .status-user-online & {
+        path {
+          fill: $brand-primary;
+        }
+
+        ~ span {
+          color: $brand-primary;
+        }
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      padding: 0;
+
+      .header-search-form {
+        line-height: $header-top-height;
+        min-width: 68px;
+        text-align: center;
+
+        &:hover {
+          background: $gray-lightest;
+        }
+      }
+
+      .nav-item {
+        height: $header-top-height;
+      }
+
+      .nav-link {
+        font-weight: 700;
+        line-height: $header-top-height;
+        padding-top: 0;
+        padding-bottom: 0;
+        min-width: 68px;
+        text-align: center;
+        cursor: pointer;
+
+        &:hover {
+          background: $gray-lightest;
+        }
+      }
+
+      .user-status-bubble {
+        position: absolute;
+        background: $brand-primary;
+        border-radius: 50%;
+        width: 9px;
+        height: 9px;
+        top: 50%;
+        left: 50%;
+        margin-top: -21px;
+        margin-left: 8px;
+        opacity: 0;
+        transition-duration: 0.3s;
+
+        .status-user-online & {
+          opacity: 1;
+        }
+      }
+
+      .nav-item-bordered {
+        border-left: 1px solid $header-border-color;
+        border-right: 1px solid $header-border-color;
+
+        + .nav-item-bordered {
+          border-left: none;
+        }
+      }
+    }
+
+    @include media-breakpoint-down(xs) {
+      .container {
+        width: 100%;
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      .navbar-brand {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .secondary-navbar {
+    padding: 0;
+    border-bottom: 1px solid $header-border-color;
+
+    .header-main-link-nav {
+      @include media-breakpoint-up(lg) {
+        .nav-item + .nav-item {
+          margin-left: 50px;
+        }
+
+        .nav-link {
+          padding: 11px 0;
+          text-transform: uppercase;
+          color: $black;
+          font-weight: 700;
+          border-bottom: 3px solid transparent;
+          margin-bottom: -1px;
+          transition-duration: 0.3s;
+
+          &:hover {
+            color: $brand-primary;
+          }
+
+          &.active {
+            color: $brand-primary;
+            border-bottom-color: $brand-primary;
+          }
+        }
+      }
+    }
+  }
+}

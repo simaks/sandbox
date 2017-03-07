@@ -1,0 +1,10 @@
+.square-img-lg {
+  display: block;
+  width: 100%;
+  background-position: 50%;
+  background-size: cover;
+
+  @include media-breakpoint-up(lg) {
+    padding-bottom: 100%;
+  }
+}

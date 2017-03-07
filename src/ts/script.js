@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+require("js-polyfills");
+var jQuery = require("jquery");
+window.jQuery = jQuery;
+var Tether = require("tether");
+window.Tether = Tether;
+require("bootstrap");
+var HelloWorld_1 = require("./HelloWorld");
+var world = new HelloWorld_1.HelloWorld();

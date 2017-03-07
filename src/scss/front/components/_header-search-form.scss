@@ -1,0 +1,108 @@
+.header-search-form {
+  @include clearfix;
+  transition-duration: 0.25s;
+  transition-property: background;
+
+  .hsf-input {
+    border-color: transparent;
+    background: transparent;
+    display: inline-block;
+    height: 40px;
+    color: $gray-light;
+  }
+
+  .hsf-input-holder {
+    margin: 0 50px;
+  }
+
+  .hsf-btn {
+    @include button-variant($body-color, transparent, transparent);
+    padding: 5px;
+    height: 40px;
+    width: 50px;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    &:active {
+      box-shadow: inset 1px 1px 1px 2px $gray-lighter;
+    }
+  }
+
+  .hsf-label {
+    @extend .hsf-btn;
+    display: inline-block;
+    padding-left: 0;
+    line-height: 40px;
+    height: auto;
+    width: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    margin: 0 0 0 4px;
+  }
+
+  .hsf-search-btn {
+    float: left;
+    transition-property: box-shadow;
+  }
+
+  .hsf-close-btn {
+    float: right;
+  }
+
+  @include media-breakpoint-up(lg) {
+    .hsf-btn {
+      height: $header-top-height;
+    }
+
+    .hsf-label {
+      display: none;
+    }
+
+    .hsf-input {
+      font-size: 28px;
+      line-height: 38px;
+      padding: 0;
+      vertical-align: middle;
+    }
+  }
+
+  &.open {
+    .hsf-label {
+      display: none;
+    }
+
+    @include media-breakpoint-down(md) {
+      background: $gray-lighter;
+    }
+  }
+
+  &.closed {
+    .hsf-input-holder {
+      display: none;
+    }
+
+    .hsf-close-btn {
+      display: none;
+    }
+
+    @include media-breakpoint-up(lg) {
+      .hsf-search-btn {
+        float: none;
+        width: 100%;
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      .hsf-search-btn {
+        width: auto;
+        padding-left: 0;
+      }
+    }
+  }
+}

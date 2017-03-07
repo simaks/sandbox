@@ -1,0 +1,68 @@
+.pagination {
+  display: flex;
+  // 1-2: Disable browser default list styles
+  padding-left: 0; // 1
+  list-style: none; // 2
+}
+
+.page-item {
+  &:not(.prev):not(.next) {
+    margin: 0 10px;
+  }
+
+  &.prev {
+    margin-right: auto;
+  }
+
+  &.next {
+    margin-left: auto;
+  }
+
+  &.prev .page-link, &.next .page-link {
+    font-size: 24px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.prev .page-link {
+    text-align: left;
+  }
+
+  &.next .page-link {
+    text-align: right;
+  }
+
+  &.active .page-link {
+    color: $pagination-active-color;
+    background-color: $pagination-active-bg;
+    border-color: $pagination-active-border;
+    font-weight: 700;
+  }
+
+  &.disabled .page-link {
+    color: $pagination-disabled-color;
+    pointer-events: none;
+    cursor: $cursor-disabled; // While `pointer-events: none` removes the cursor in modern browsers, we provide a disabled cursor as a fallback.
+    background-color: $pagination-disabled-bg;
+    border-color: $pagination-disabled-border;
+  }
+}
+
+.page-link {
+  min-width: 40px;
+  text-align: center;
+  display: block;
+  font-size: 18px;
+  padding: $pagination-padding-y $pagination-padding-x;
+  line-height: $pagination-line-height;
+  color: $pagination-color;
+  background-color: $pagination-bg;
+  border-top: $pagination-border-width solid $pagination-border-color;
+
+  @include hover-focus {
+    color: $pagination-hover-color;
+    text-decoration: none;
+    background-color: $pagination-hover-bg;
+    border-color: $pagination-hover-border;
+  }
+}

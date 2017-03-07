@@ -1,0 +1,21 @@
+.favourite-region-toolbar {
+  &.active {
+    .favourite-region-active {
+      .svg-icon {
+        path {
+          fill: $brand-primary;
+        }
+      }
+    }
+  }
+
+  &.primary {
+    .favourite-region-main {
+      .svg-icon {
+        path {
+          fill: $brand-primary;
+        }
+      }
+    }
+  }
+}

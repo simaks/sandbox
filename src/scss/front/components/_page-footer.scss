@@ -1,0 +1,48 @@
+.page-footer {
+  font-size: 14px;
+  hr {
+    margin: 12px 0;
+    border-color: #979797;
+  }
+}
+
+.page-footer-links {
+  @include clearfix;
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  > li {
+    display: block;
+    float: left;
+
+    + li {
+      margin-left: 50px;
+    }
+  }
+}
+
+.page-footer-link {
+  color: $black !important;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+
+.page-footer-to-top {
+  color: $brand-primary !important;
+  text-transform: uppercase ;
+  font-weight: 700;
+
+  .icon-to-top {
+    width: 7px;
+    transform-origin: center;
+    transform: rotate(180deg);
+    margin-left: 5px;
+
+    path {
+      fill: $brand-primary;
+    }
+  }
+}

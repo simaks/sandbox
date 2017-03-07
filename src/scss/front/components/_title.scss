@@ -1,0 +1,52 @@
+.article-title-1 {
+  color: $black;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 38px;
+}
+
+.article-title-2 {
+  color: $black;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.article-title-3 {
+  color: $black;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 23px;
+}
+
+.emerald-title {
+  color: $brand-primary;
+  font-size: 21px;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: relative;
+  padding-left: 18px;
+
+  &:before {
+    top: 50%;
+    content: ' ';
+    display: block;
+    border-top: $hr-border-width solid $hr-border-color;
+    position: absolute;
+    right: 0;
+    left: 20px;
+  }
+
+  .text-holder {
+    padding-right: 15px;
+    position: relative;
+    background: $white;
+    display: inline-block;
+    position: relative;
+  }
+
+  .icon-diamond-bullet {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}

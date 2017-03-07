@@ -1,0 +1,29 @@
+.favourite-region-toolbar.user-region-item {
+  &:not(.active) {
+    .user-region-remove {
+      display: none;
+    }
+  }
+
+  &.active {
+    .user-region-add {
+      display: none;
+    }
+  }
+
+  &:not(.primary) {
+    .user-region-primary {
+      .show-active {
+        display: none;
+      }
+    }
+  }
+
+  &.primary {
+    .user-region-primary {
+      .show-inactive {
+        display: none;
+      }
+    }
+  }
+}
