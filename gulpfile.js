@@ -1,24 +1,5 @@
 'use strict';
 
-/* ==========================================================================
-   Gulpfile
-
-   Tasks:
-   - gulp (builds for dev + watch)
-   - gulp build (builds for prod)
-   - gulp watch
-
-   - gulp migrate
-   - gulp cc (Clear Cache)
-   - gulp fixperms
-   - gulp maintenance
-   - gulp apachectl
-   ========================================================================== */
-
-
-/* Setup Gulp
-   ========================================================================== */
-// Require
 let gulp = require('gulp'),
     copydir = require('copy-dir'),
     del = require('del'),
@@ -28,7 +9,7 @@ let gulp = require('gulp'),
     rebase = require("rebase/tasks/gulp-rebase"),
     notifier = require('node-notifier'),
     runSequence = require('run-sequence'),
-    realFavicon = require ('gulp-real-favicon'),
+    realFavicon = require('gulp-real-favicon'),
     plugins = require('gulp-load-plugins')(),
     browserify = require("browserify"),
     source = require('vinyl-source-stream'),
@@ -40,7 +21,56 @@ let gulp = require('gulp'),
     concat = require('gulp-concat'),
     sourcemaps = require('gulp-sourcemaps'),
     debug = require('gulp-debug'),
+    jasmineBrowser = require('gulp-jasmine-browser'),
+    watch = require('gulp-watch'),
     merge = require('merge-stream');
+
+
+// Gulp Config
+let showErrorNotifications = true,
+    config = {
+        scssFile: './src/scss/style.scss',
+        scssWatch: './src/scss/**',
+        tsFile: './src/ts/script.ts',
+        tsTestFile: './src/ts/test.ts',
+        tsWatch: './src/ts/**',
+
+        dist: {
+            css: './dist',
+            js: './dist'
+        },
+
+        browserSupport: [
+            "last 2 versions",
+            "ie 9",
+            "ie 10",
+            "ie 11"
+        ]
+    };
+
+let errorLogger = function (headerMessage, errorMessage) {
+    let header = headerLines(headerMessage);
+    header += '\n             ' + headerMessage + '\n           ';
+    header += headerLines(headerMessage);
+    header += '\r\n \r\n';
+    plugins.util.log(plugins.util.colors.red(header) + '             ' + errorMessage + '\r\n')
+
+    if (showErrorNotifications) {
+        notifier.notify({
+            'title': headerMessage,
+            'message': errorMessage,
+            'contentImage': __dirname + "/gulp_error.png"
+        });
+    }
+};
+
+let headerLines = function (message) {
+    let lines = '';
+    for (let i = 0; i < (message.length + 4); i++) {
+        lines += '-';
+    }
+    return lines;
+};
 
 function swallowError(error) {
     console.error('\\/ \\/ \\/ \\/ \\/ \\/ \\/ \\/ \\/ \\/ \\/ ERROR \\/ \\/ \\/ \\/ \\/ \\/ \\/ \\/ \\/ \\/ \\/\n\n'
@@ -49,12 +79,12 @@ function swallowError(error) {
     this.emit('end')
 }
 
-const compileTypescript = function(env) {
+const compileTypescript = function (env) {
     return function () {
         let result = browserify({
             basedir: '.',
             debug: true,
-            entries: [config.tsFile],
+            entries: [env == 'prod' ? config.tsFile : config.tsTestFile],
             cache: {},
             packageCache: {}
         })
@@ -65,7 +95,7 @@ const compileTypescript = function(env) {
             })
             .bundle()
             .on('error', swallowError)
-            .pipe(source('script.js'))
+            .pipe(env == 'test' ? source('test.js') : source('script.js'))
             .pipe(buffer());
 
         if (env == 'prod') {
@@ -88,38 +118,27 @@ gulp.task('front-script-prod', compileTypescript('prod'));
 
 gulp.task('front-script-dev', compileTypescript('dev'));
 
+gulp.task('front-script-test', compileTypescript('test'));
 
 
-// Gulp Config
-let showErrorNotifications = true,
-    allowChmod = true;
+gulp.task('jasmine-phantom', ['front-script-test'], function() {
+    return gulp.src(['dist/test.js'])
+        .pipe(jasmineBrowser.specRunner({console: true}))
+        .pipe(jasmineBrowser.headless());
+});
+
+gulp.task('jasmine-watch', function() {
+    gulp.watch(config.tsWatch, ['front-script-test']);
+    return gulp.src('dist/test.js')
+        .pipe(watch('dist/test.js'))
+        .pipe(jasmineBrowser.specRunner())
+        .pipe(jasmineBrowser.server({port: 8888}));
+});
 
 
-
-let config = {
-    scssFile: './src/scss/front-style.scss',
-    tsFile: './src/ts/script.ts',
-    tsWatch: './src/ts/**',
-
-    dist: {
-        scss: './dist',
-        js: './dist'
-    },
-
-    browserSupport: [
-        "last 2 versions",
-        "ie 9",
-        "ie 10",
-        "ie 11"
-    ]
-};
-
-
-/* Styles
-   ========================================================================== */
-gulp.task('front-styles', function() {
-    return gulp.src([config.scssFile])
-        // Sass
+gulp.task('front-styles', function () {
+    return gulp.src(['./src/scss/style.scss'])
+    // Sass
         .pipe(plugins.rubySass({
             loadPath: './',
             bundleExec: true
@@ -127,31 +146,27 @@ gulp.task('front-styles', function() {
         .on('error', function (err) {
             errorLogger('SASS Compilation Error', err.message);
         })
-
-        // Combine Media Queries
-        .pipe(plugins.combineMq())
-
-        // Prefix where needed
-        .pipe(plugins.autoprefixer(config.browserSupport))
-
-        // Minify output
-        .pipe(plugins.minifyCss())
-
-        // Rename the file to respect naming covention.
-        .pipe(plugins.rename(function(path){
-            path.basename += '.min';
-        }))
+        //
+        // // Combine Media Queries
+        // .pipe(plugins.combineMq())
+        //
+        // // Prefix where needed
+        // .pipe(plugins.autoprefixer(config.browserSupport))
+        //
+        // // Minify output
+        // .pipe(plugins.minifyCss())
+        //
+        // // Rename the file to respect naming covention.
+        // .pipe(plugins.rename(function(path){
+        //     path.basename += '.min';
+        // }))
 
         // Write to output
-        .pipe(gulp.dest(config.dist.css))
-
-        // Show total size of css
-        .pipe(plugins.size({
-            title: 'front-styles'
-        }));
+        .pipe(gulp.dest('./dist/'))
+        ;
 });
 
-gulp.task('favicon', function(done) {
+gulp.task('favicon', function (done) {
     realFavicon.generateFavicon({
         masterPicture: 'src/Nfq/EtapliusBundle/Resources/ui/img/etaplius-logo.svg',
         dest: 'web',
@@ -208,38 +223,32 @@ gulp.task('favicon', function(done) {
             errorOnImageTooSmall: false
         },
         markupFile: 'faviconData.json'
-    }, function() {
+    }, function () {
         done();
     });
 });
 
-/* Default tasks
-   ========================================================================== */
-// Watch
-gulp.task('watch', function() {
+
+gulp.task('watch', function () {
     // Styles
-    gulp.watch(config.scss, ['front-styles']);
+    gulp.watch(config.scssWatch, ['front-styles']);
 
     gulp.watch(config.tsWatch, ['front-script-dev']);
-
-    // Images
-    gulp.watch(config.img, ['images']);
 });
 
 
-// Build
-gulp.task('build', function(done) {
+gulp.task('build', function (done) {
     runSequence(
         [
             // 'favicon',
             'front-styles',
             'front-script-prod'
         ],
-    done);
+        done);
 });
 
-// Default
-gulp.task('default', function(done) {
+
+gulp.task('default', function (done) {
     runSequence(
         [
             // 'favicon',
