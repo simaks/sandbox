@@ -129,10 +129,12 @@ gulp.task('jasmine-phantom', ['front-script-test'], function() {
 
 gulp.task('jasmine-watch', function() {
     gulp.watch(config.tsWatch, ['front-script-test']);
+    let port = 8888;
+    console.info(`URL: http://localhost:${port}/`);
     return gulp.src('dist/test.js')
         .pipe(watch('dist/test.js'))
         .pipe(jasmineBrowser.specRunner())
-        .pipe(jasmineBrowser.server({port: 8888}));
+        .pipe(jasmineBrowser.server({port: port}));
 });
 
 
@@ -146,20 +148,20 @@ gulp.task('front-styles', function () {
         .on('error', function (err) {
             errorLogger('SASS Compilation Error', err.message);
         })
-        //
-        // // Combine Media Queries
-        // .pipe(plugins.combineMq())
-        //
-        // // Prefix where needed
-        // .pipe(plugins.autoprefixer(config.browserSupport))
-        //
-        // // Minify output
-        // .pipe(plugins.minifyCss())
-        //
-        // // Rename the file to respect naming covention.
-        // .pipe(plugins.rename(function(path){
-        //     path.basename += '.min';
-        // }))
+
+        // Combine Media Queries
+        .pipe(plugins.combineMq())
+
+        // Prefix where needed
+        .pipe(plugins.autoprefixer(config.browserSupport))
+
+        // Minify output
+        .pipe(plugins.minifyCss())
+
+        // Rename the file to respect naming covention.
+        .pipe(plugins.rename(function(path){
+            path.basename += '.min';
+        }))
 
         // Write to output
         .pipe(gulp.dest('./dist/'))
