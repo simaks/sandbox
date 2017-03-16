@@ -9,7 +9,7 @@ describe("last", function () {
         expect(last("xyz")).toBe("z");
     });
 
-    it("Array input should return last element", function () {
+    it("Multi-argument input should return last element", function () {
         expect(last(1, 2, 3, 4)).toBe(4);
     });
 });
