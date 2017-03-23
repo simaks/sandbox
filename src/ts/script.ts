@@ -5,6 +5,6 @@ import * as Tether from 'tether';
 (<any>window).Tether = Tether;
 import "bootstrap";
 
-import { HelloWorld } from './HelloWorld';
+import { HelloWorld } from './script/HelloWorld';
 
 let world = new HelloWorld();
