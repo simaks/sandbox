@@ -138,30 +138,30 @@ gulp.task('jasmine-watch', function() {
 });
 
 
-gulp.task('front-styles', function () {
+gulp.task('scss', function () {
     return gulp.src(['./src/scss/style.scss'])
     // Sass
         .pipe(plugins.rubySass({
             loadPath: './',
-            bundleExec: true
+            bundleExec: false
         }))
         .on('error', function (err) {
             errorLogger('SASS Compilation Error', err.message);
         })
 
-        // Combine Media Queries
-        .pipe(plugins.combineMq())
+        // // Combine Media Queries
+        // .pipe(plugins.combineMq())
 
-        // Prefix where needed
-        .pipe(plugins.autoprefixer(config.browserSupport))
+        // // Prefix where needed
+        // .pipe(plugins.autoprefixer(config.browserSupport))
 
-        // Minify output
-        .pipe(plugins.minifyCss())
-
-        // Rename the file to respect naming covention.
-        .pipe(plugins.rename(function(path){
-            path.basename += '.min';
-        }))
+        // // Minify output
+        // .pipe(plugins.minifyCss())
+        //
+        // // Rename the file to respect naming covention.
+        // .pipe(plugins.rename(function(path){
+        //     path.basename += '.min';
+        // }))
 
         // Write to output
         .pipe(gulp.dest('./dist/'))
@@ -233,7 +233,7 @@ gulp.task('favicon', function (done) {
 
 gulp.task('watch', function () {
     // Styles
-    gulp.watch(config.scssWatch, ['front-styles']);
+    gulp.watch(config.scssWatch, ['scss']);
 
     gulp.watch(config.tsWatch, ['front-script-dev']);
 });
@@ -243,7 +243,7 @@ gulp.task('build', function (done) {
     runSequence(
         [
             // 'favicon',
-            'front-styles',
+            'scss',
             'front-script-prod'
         ],
         done);
@@ -254,7 +254,7 @@ gulp.task('default', function (done) {
     runSequence(
         [
             // 'favicon',
-            'front-styles',
+            'scss',
             'front-script-dev'
         ],
         'watch',
