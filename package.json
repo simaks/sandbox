@@ -1,10 +1,10 @@
 {
-  "name": "NfqEtapliusBundle",
+  "name": "Sandbox",
   "version": "1.0.0",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.nfq.lt:imlitex/tms-user-zone.git"
+    "url": "git@github.com:simaks/sandbox.git"
   },
   "devDependencies": {
     "@types/jasmine": "^2.5.43",

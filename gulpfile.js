@@ -167,7 +167,7 @@ gulp.task('scss', function () {
         .pipe(gulp.dest('./dist/'))
         ;
 });
-
+/*
 gulp.task('favicon', function (done) {
     realFavicon.generateFavicon({
         masterPicture: 'src/Nfq/EtapliusBundle/Resources/ui/img/etaplius-logo.svg',
@@ -229,7 +229,7 @@ gulp.task('favicon', function (done) {
         done();
     });
 });
-
+*/
 
 gulp.task('watch', function () {
     // Styles
