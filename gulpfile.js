@@ -84,7 +84,7 @@ const compileTypescript = function (env) {
         let result = browserify({
             basedir: '.',
             debug: true,
-            entries: [env == 'prod' ? config.tsFile : config.tsTestFile],
+            entries: [env == 'test' ? config.tsTestFile : config.tsFile],
             cache: {},
             packageCache: {}
         })
